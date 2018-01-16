@@ -15,9 +15,15 @@ public class Ikabot extends AdvancedRobot
 	public void run() {
 		Territory nawabari = new Territory(getX(), getY(), 20);
 		setAdjustGunForRobotTurn(true);
-		setTurnGunRightRadians(Double.POSITIVE_INFINITY);
+		setAdjustRadarForGunTurn(true);
+		setAdjustRadarForRobotTurn(true);
 
+		Point2D.Double a;
 		while(true){
+			if(getRadarTurnRemaining() == 0){
+				setTurnRadarRightRadians(Double.POSITIVE_INFINITY);
+			}
+
 			if(getDistanceRemaining() == 0){
 				Point2D.Double a = nawabari.getNextPoint();
 				out.println("(" + a.getX() + "," + a.getY() + ")");
@@ -35,18 +41,24 @@ public class Ikabot extends AdvancedRobot
 	}
 
 	public void onScannedRobot(ScannedRobotEvent e){
-		double radar = getHeadingRadians() + e.getBearingRadians() - getGunHeadingRadians();
-		setTurnGunRightRadians(Utils.normalRelativeAngle(radar));
+		double radar = getHeadingRadians() + e.getBearingRadians() - getRadarHeadingRadians();
+		setTurnRadarRightRadians(Utils.normalRelativeAngle(radar));
 
+		double power;
 		if ( e.getDistance() < 200)
-			setFire(3);
+			power = 3;
 		else if(e.getDistance() < 600)
-			setFire(2);
+			power = 2;
 		else
-			setFire(1);
+			power = 1;
+
+		setTurnGunRightRadians(Utils.normalRelativeAngle(getHeadingRadians() + e.getBearingRadians() + Math.asin(e.getVelocity() / Rules.getBulletSpeed(power) * Math.sin(e.getHeadingRadians() - getHeadingRadians() + e.getBearingRadians())) - getGunHeadingRadians()));	
+		setFire(power);
+		setFire(power);
 	}
 
 	public void onHitWall(HitWallEvent e){
-		back(10);
+		back(30);
+		ahead(30);
 	}
 }
