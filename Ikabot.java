@@ -3,7 +3,7 @@ import robocode.*;
 import TeamIka.Territory;
 import java.awt.geom.Point2D;
 import robocode.util.Utils;
-//import java.awt.Color;
+import java.awt.Color;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
@@ -17,6 +17,8 @@ public class Ikabot extends AdvancedRobot
 		setAdjustGunForRobotTurn(true);
 		setAdjustRadarForGunTurn(true);
 		setAdjustRadarForRobotTurn(true);
+
+		setColors(new Color(194, 87, 121), Color.white, new Color(194, 87, 121));
 
 		Point2D.Double a;
 		while(true){
@@ -56,7 +58,6 @@ public class Ikabot extends AdvancedRobot
 			power = 1;
 
 		setTurnGunRightRadians(Utils.normalRelativeAngle(getHeadingRadians() + e.getBearingRadians() + Math.asin(e.getVelocity() / Rules.getBulletSpeed(power) * Math.sin(e.getHeadingRadians() - getHeadingRadians() + e.getBearingRadians())) - getGunHeadingRadians()));	
-		setFire(power);
 		setFire(power);
 	}
 
