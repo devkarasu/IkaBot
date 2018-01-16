@@ -13,37 +13,37 @@ import robocode.util.Utils;
 public class Ikabot extends AdvancedRobot
 {
 	public void run() {
-		Territory nawabari = new Territory(getX(), getY(), 3);
+		Territory nawabari = new Territory(getX(), getY(), 20);
 		setAdjustGunForRobotTurn(true);
 		setTurnGunRightRadians(Double.POSITIVE_INFINITY);
 
-		for(int i=0; i<100; i++){
-			Point2D.Double a = nawabari.getNextPoint();
-			out.println("(" + a.getX() + "," + a.getY() + ")");
-			moveToPoint(a);
+		while(true){
+			if(getDistanceRemaining() == 0){
+				Point2D.Double a = nawabari.getNextPoint();
+				out.println("(" + a.getX() + "," + a.getY() + ")");
+				goTo(a);
+			}
 		}
 	}
 
-	private void moveToPoint(Point2D.Double point) {
-		double dx = point.getX() - getX();
-		double dy = point.getY() - getY();
-		double angleToTarget = Math.atan2(dx, dy);
-		double targetAngle = Utils.normalRelativeAngle(angleToTarget - getHeadingRadians());
-		double distance = Math.hypot(dx, dy);
-		double turnAngle = Math.atan(Math.tan(targetAngle));
-		setTurnRightRadians(turnAngle);
-		if(targetAngle == turnAngle){
-			ahead(distance);
-		} else {
-			back(distance);
-		}
+	private void goTo(Point2D.Double point) {
+		double x = point.getX();
+		double y = point.getY();
+		double a;
+		setTurnRightRadians(Math.tan(a = Math.atan2(x -= (int) getX(), y -= (int) getY()) - getHeadingRadians()));
+		ahead(Math.hypot(x, y) * Math.cos(a));
 	}
 
 	public void onScannedRobot(ScannedRobotEvent e){
 		double radar = getHeadingRadians() + e.getBearingRadians() - getGunHeadingRadians();
 		setTurnGunRightRadians(Utils.normalRelativeAngle(radar));
 
-		setFire(1);
+		if ( e.getDistance() < 200)
+			setFire(3);
+		else if(e.getDistance() < 600)
+			setFire(2);
+		else
+			setFire(1);
 	}
 
 	public void onHitWall(HitWallEvent e){
