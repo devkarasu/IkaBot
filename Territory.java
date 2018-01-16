@@ -10,14 +10,14 @@ public class Territory{
     private Iterator<Point2D.Double> it;
     private int NUM;
 
-    public Territory(double x, double y){
+    public Territory(double x, double y, int n){
         center = new Point2D.Double(x, y);
-        NUM = 10;
+        NUM = n;
         points = new ArrayList<Point2D.Double>();
 
         for(int i = 0; i < NUM; i++){
             double ranDis = Math.random() * 50;
-            double ranAng = Math.random() * 2 * Math.PI;
+            double ranAng = Math.toRadians(NUM * 360 * i / NUM);
 
             points.add(new Point2D.Double(center.getX() + ranDis * Math.cos(ranAng), center.getY() + ranDis * Math.cos(ranAng)));
         }
