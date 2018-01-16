@@ -2,6 +2,7 @@ package TeamIka;
 import robocode.*;
 import TeamIka.Territory;
 import java.awt.geom.Point2D;
+import robocode.util.Utils;
 //import java.awt.Color;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
@@ -11,19 +12,41 @@ import java.awt.geom.Point2D;
  */
 public class Ikabot extends AdvancedRobot
 {
-	Territory nawabari = new Territory(getX(), getY());
 	public void run() {
-		while(true){
-			moveToPoint(nawabari.getNextPoint());
+		Territory nawabari = new Territory(getX(), getY(), 3);
+		setAdjustGunForRobotTurn(true);
+		setTurnGunRightRadians(Double.POSITIVE_INFINITY);
+
+		for(int i=0; i<100; i++){
+			Point2D.Double a = nawabari.getNextPoint();
+			out.println("(" + a.getX() + "," + a.getY() + ")");
+			moveToPoint(a);
 		}
 	}
 
 	private void moveToPoint(Point2D.Double point) {
 		double dx = point.getX() - getX();
 		double dy = point.getY() - getY();
-		double angle = Math.toDegrees(Math.atan2(dx, dy)) - getHeading();
-	
-		turnRight(angle);
-		ahead(Math.sqrt(dx * dx + dy * dy));
+		double angleToTarget = Math.atan2(dx, dy);
+		double targetAngle = Utils.normalRelativeAngle(angleToTarget - getHeadingRadians());
+		double distance = Math.hypot(dx, dy);
+		double turnAngle = Math.atan(Math.tan(targetAngle));
+		setTurnRightRadians(turnAngle);
+		if(targetAngle == turnAngle){
+			ahead(distance);
+		} else {
+			back(distance);
+		}
+	}
+
+	public void onScannedRobot(ScannedRobotEvent e){
+		double radar = getHeadingRadians() + e.getBearingRadians() - getGunHeadingRadians();
+		setTurnGunRightRadians(Utils.normalRelativeAngle(radar));
+
+		setFire(1);
+	}
+
+	public void onHitWall(HitWallEvent e){
+		back(10);
 	}
 }
