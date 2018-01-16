@@ -2,8 +2,7 @@ package TeamIka;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.awt.geom.Point2D.Double;
-import robocode.*;
+import java.awt.geom.Point2D;
 
 public class Territory{
     private Point2D.Double center;
@@ -20,7 +19,7 @@ public class Territory{
             double ranDis = Math.random() * 50;
             double ranAng = Math.random() * 2 * Math.PI;
 
-            points.add(new Point2D.Double(center.getX() + ranDis * cos(ranAng), center.getY() + ranDis * sin(ranAng)));
+            points.add(new Point2D.Double(center.getX() + ranDis * Math.cos(ranAng), center.getY() + ranDis * Math.cos(ranAng)));
         }
         it = points.iterator();
     }
@@ -30,7 +29,7 @@ public class Territory{
     }
 
     public Point2D.Double getNextPoint(){
-        if(it.hasNext){
+        if(it.hasNext()){
             return it.next();
         }
         else{
