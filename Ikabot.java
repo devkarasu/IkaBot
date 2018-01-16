@@ -25,7 +25,10 @@ public class Ikabot extends AdvancedRobot
 			}
 
 			if(getDistanceRemaining() == 0){
-				Point2D.Double a = nawabari.getNextPoint();
+				if(Math.random() < 0.4)
+					a = new Point2D.Double(Math.random() * 1000, Math.random() * 1000);					
+				else
+					a = nawabari.getNextPoint();
 				out.println("(" + a.getX() + "," + a.getY() + ")");
 				goTo(a);
 			}
@@ -58,7 +61,7 @@ public class Ikabot extends AdvancedRobot
 	}
 
 	public void onHitWall(HitWallEvent e){
-		back(30);
+		back(50);
 		ahead(30);
 	}
 }
