@@ -31,15 +31,15 @@ public class Ikabot extends AdvancedRobot
 					a = new Point2D.Double(Math.random() * 1000, Math.random() * 1000);					
 				else
 					a = nawabari.getNextPoint();
-				out.println("(" + a.getX() + "," + a.getY() + ")");
+				out.println("(" + a.x + "," + a.y + ")");
 				goTo(a);
 			}
 		}
 	}
 
 	private void goTo(Point2D.Double point) {
-		double x = point.getX();
-		double y = point.getY();
+		double x = point.x;
+		double y = point.y;
 		double a;
 		setTurnRightRadians(Math.tan(a = Math.atan2(x -= (int) getX(), y -= (int) getY()) - getHeadingRadians()));
 		ahead(Math.hypot(x, y) * Math.cos(a));
@@ -59,6 +59,9 @@ public class Ikabot extends AdvancedRobot
 
 		setTurnGunRightRadians(Utils.normalRelativeAngle(getHeadingRadians() + e.getBearingRadians() + Math.asin(e.getVelocity() / Rules.getBulletSpeed(power) * Math.sin(e.getHeadingRadians() - getHeadingRadians() + e.getBearingRadians())) - getGunHeadingRadians()));	
 		setFire(power);
+
+		if(e.getBearingRadians() < 1)
+			setTurnRight(100);
 	}
 
 	public void onHitWall(HitWallEvent e){
