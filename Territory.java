@@ -17,9 +17,9 @@ public class Territory{
 
         for(int i = 0; i < NUM; i++){
             double ranDis = Math.random() * 100;
-            double angle = Math.toRadians(NUM * 360 * i / NUM);
+            double angle = Math.toRadians(360 * i / NUM);
 
-            points.add(new Point2D.Double(center.x + ranDis * Math.cos(angle), center.y + ranDis * Math.cos(angle)));
+            points.add(new Point2D.Double(center.x + ranDis * Math.sin(angle), center.y + ranDis * Math.cos(angle)));
         }
         it = points.iterator();
     }
