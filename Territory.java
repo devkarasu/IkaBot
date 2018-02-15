@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.geom.Point2D;
 
+/**
+* Territoryは、ロボットのナワバリに関する機能を提供するクラスです。
+* @author 和田一真
+*/
+
 public class Territory{
     private Point2D.Double center;
     private ArrayList<Point2D.Double> points;
