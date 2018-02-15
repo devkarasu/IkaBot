@@ -46,7 +46,8 @@ public class Ikabot extends AdvancedRobot
 	}
 
 	public void onScannedRobot(ScannedRobotEvent e){
-		double radar = getHeadingRadians() + e.getBearingRadians() - getRadarHeadingRadians();
+		double absoluteBearing = getHeadingRadians() + e.getBearingRadians();
+		double radar = absoluteBearing - getRadarHeadingRadians();
 		setTurnRadarRightRadians(Utils.normalRelativeAngle(radar));
 
 		double power;
@@ -57,7 +58,7 @@ public class Ikabot extends AdvancedRobot
 		else
 			power = 1;
 
-		setTurnGunRightRadians(Utils.normalRelativeAngle(getHeadingRadians() + e.getBearingRadians() + Math.asin(e.getVelocity() / Rules.getBulletSpeed(power) * Math.sin(e.getHeadingRadians() - getHeadingRadians() + e.getBearingRadians())) - getGunHeadingRadians()));	
+		setTurnGunRightRadians(Utils.normalRelativeAngle(absoluteBearing + Math.asin(e.getVelocity() / Rules.getBulletSpeed(power) * Math.sin(e.getHeadingRadians() - absoluteBearing)) - getGunHeadingRadians()));	
 		setFire(power);
 
 		if(e.getBearingRadians() < 1)
