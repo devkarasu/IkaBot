@@ -34,8 +34,8 @@ public class Territory{
      * @param x 生成するナワバリの中心となるX座標
      * @param y 生成するナワバリの中心となるy座標
      * @param n 生成するナワバリの頂点数
-     * @see center
-     * @see points
+     * @see #center
+     * @see #points
      */
     public Territory(double x, double y, int n){
         center = new Point2D.Double(x, y);
@@ -54,7 +54,7 @@ public class Territory{
     /**
      * ナワバリの頂点数を戻します。
      * @return ナワバリの頂点数
-     * @see NUM
+     * @see #NUM
      */
     public int getNum(){
         return NUM;
