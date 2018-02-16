@@ -8,8 +8,8 @@ import java.awt.Color;
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
 /**
- * Ikabot - a robot by Kazuma Wada
- * 創成工学実験で制作を行ったロボットです。
+ * Ikabot - a robot by Kazuma Wada<br>
+ * 創成工学実験で制作を行ったロボットです。<br>
  * ナワバリを持ち複雑な移動を行うことを特徴とします。
  * @author 和田 一真
  */
@@ -56,7 +56,7 @@ public class Ikabot extends AdvancedRobot
 	/**
 	 * 指定した座標点までロボットを移動させます。
 	 * @param point 目標座標
-	 * @see awt.geom.Point2D.Double
+	 * @see <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/awt/geom/Point2D.Double.html">java.awt.geom.Point2D.Double</a>
 	 */
 	private void goTo(Point2D.Double point) {
 		double x = point.x;
