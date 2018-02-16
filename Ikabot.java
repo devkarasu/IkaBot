@@ -75,7 +75,6 @@ public class Ikabot extends AdvancedRobot
 	 * <li>このロボットが発見したロボットの方向にまっすぐ向かおうとした時、軌道を右に逸します。</li>
 	 * </ul>
 	 * @param e ゲームによって設定されるイベント
-	 * @see ScannedRobotEvent
 	 */
 	public void onScannedRobot(ScannedRobotEvent e){
 		double absoluteBearing = getHeadingRadians() + e.getBearingRadians();
