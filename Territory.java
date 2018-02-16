@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.awt.geom.Point2D;
 
 /**
- * Territoryは、ロボットのナワバリに関する機能を提供するクラスです。
+ * ロボットのナワバリに関する機能を提供するクラスです。
  * @author 和田 一真
  */
 
@@ -21,6 +21,7 @@ public class Territory{
     private ArrayList<Point2D.Double> points;
     /**
      * ナワバリを構成する頂点を順に辿るためのイテレータ。
+     * @see <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/util/Iterator.html">Java.util.Iterator</a>
      */
     private Iterator<Point2D.Double> it;
     /**
@@ -63,6 +64,7 @@ public class Territory{
      * ナワバリの頂点座標を順番に戻します。
      * 最後の頂点を戻した後は、一番最初に戻ります。
      * @return ナワバリを構成する頂点のうち一つの座標
+     * @see <a href="https://docs.oracle.com/javase/jp/8/docs/api/java/awt/geom/Point2D.Double.html">Point2D.Double</a>
      */
     public Point2D.Double getNextPoint(){
         if(it.hasNext()){
