@@ -30,7 +30,7 @@ public class Territory{
     private int NUM;
 
     /**
-     * 新しいナワバリを頂点数します。
+     * 新しいナワバリを生成します。
      * @param x 生成するナワバリの中心となるX座標
      * @param y 生成するナワバリの中心となるy座標
      * @param n 生成するナワバリの頂点数
